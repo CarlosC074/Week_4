@@ -4,7 +4,7 @@
 }
 
 .intro {
- background: rgb(17, 124, 156);
+ background: #999;
  left: 0;
  margin: auto;
  position: absolute;
@@ -14,15 +14,11 @@
 }
 
 .quiz {
- background: rgb(17, 124, 156);
+ background: #999;
  left: 0;
  margin: auto;
  position: absolute;
- transform: translate(0px, 45vh);
  right: 0;
+ transition: all 0.5s linear;
  width: 700px;
-}
-
-.answerHide{
-  opacity: 0;  
 }

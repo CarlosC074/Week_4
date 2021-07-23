@@ -1,53 +1,68 @@
-const test= [
+var questions = [
     {
-    question: "When 'this' is not used within a function as the global object within an object function, 'this' is ______",
-    answers: ["The boolean", "The DOM", "The window object", "All of the above"],
-    correct: "The window object"
-     },
-
-    {
-    question: "Event bubbling causes an element's event(s) to also affect ______",
-    answers: ["The element's parent", "The element itself, causing the event to happen recursively in an indefinite loop", "Both", "Neither"],
-    correct: "The element's parent"
+      title: "Commonly used data types DO NOT include:",
+      choices: ["strings", "booleans", "alerts", "numbers"],
+      answer: "alerts"
     },
-
     {
-    question: "Timers in javascript are calculated in this unit of time:",
-    answers: ["second", "milliseconds", "nanoseconds", "clock outputs"],
-    correct: "milliseconds"
+      title: "The condition in an if / else statement is enclosed within ____.",
+      choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+      answer: "parentheses"
+    },
+    {
+      title: "Arrays in JavaScript can be used to store ____.",
+      choices: [
+        "numbers and strings",
+        "other arrays",
+        "booleans",
+        "all of the above"
+      ],
+      answer: "all of the above"
+    },
+    {
+      title:
+        "String values must be enclosed within ____ when being assigned to variables.",
+      choices: ["commas", "curly brackets", "quotes", "parentheses"],
+      answer: "quotes"
+    },
+    {
+      title:
+        "A very useful tool used during development and debugging for printing content to the debugger is:",
+      choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
+      answer: "console.log"
     }
-]
-
-//determines if you are on question 1, 2, etc. qindex 0 means you're on the first question. 
-var qIndex= 0;
-
-function ask(index) {
-    if (index < test.length) {
-        
-
-        //will measure which question you are on and places the quiz elements accordingly
-        var currentQ = test[index];
+  ];
+  
+    var qindex = 0
     
-        var quizQuestion = document.querySelector(".question");
-        var quizAnswers = document.querySelector(".answers");
-        var quizCorrect = document.querySelector(".correct");
-
-        quizQuestion.innerHTML = currentQ.question;
-
-
+  function nextQuestion(index) {
+     document.querySelector('.quiz').classList.toggle('hidden')
+    if(index < questions.length) {    
+      
+      var randoQ = questions[index]
+  
+      var title = document.querySelector('.title')
+      var choices = document.querySelector('.choices ul')
+      var answer = document.querySelector('.answer')
+  
+      title.textContent = randoQ.title
+      choices.innerHTML = randoQ.choices.map(choice => `<li>${choice}</li>`).join('')
+      answer.textContent = randoQ.answer
+      
+      qindex++
+      setTimeout(function(){
+        document.querySelector('.quiz').classList.toggle('hidden')}, 500)
+    } else {
+      alert('quiz Over')
     }
-}
-
-//Function Activates when the "take quiz" button is clicked. Makes the intro card dissappear and the quiz cards take its place. 
-function startQuiz() {
-    var introCard = document.querySelector(".intro");
-
-    introCard.setAttribute("style", "display: none");
-
-    var quizCard  = document.querySelector(".quiz");
-    quizCard.classList.toggle("hidden");
-
-    ask(qIndex);
-}
-
-//the quiz card is already active. what needs to be done is to attach the elements to the quiz then make that card visible.
+    
+  }
+  
+  document.querySelector('.next').addEventListener('click', function(){nextQuestion(qindex)})
+  
+  document.querySelector('.take-quiz').addEventListener('click', function(){
+    document.querySelector('.intro').classList.toggle('hidden')
+      document.querySelector('.quiz').classList.toggle('hidden')
+    nextQuestion(qindex)
+  })
+  
