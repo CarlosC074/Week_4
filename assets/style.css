@@ -1,1 +1,28 @@
+.hidden {
+  opacity: 0;
+  transform: translateX(100%);
+}
 
+.intro {
+ background: rgb(17, 124, 156);
+ left: 0;
+ margin: auto;
+ position: absolute;
+ right: 0;
+ transition: all 0.5s linear;
+ width: 700px;
+}
+
+.quiz {
+ background: rgb(17, 124, 156);
+ left: 0;
+ margin: auto;
+ position: absolute;
+ transform: translate(0px, 45vh);
+ right: 0;
+ width: 700px;
+}
+
+.answerHide{
+  opacity: 0;  
+}

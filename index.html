@@ -5,8 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel= "stylesheet" href= "assets/style.css">
+    <script src= "./assets/script.js"></script>
 </head>
 <body>
-    
+  <main>
+    <div>
+        <div class="intro">
+          <h1>This is a quiz</h1>
+          <p>This quiz will test the user on javascript fundamentals</p>
+          <button class="take-quiz" onclick="startQuiz()">TakeQuiz</button>
+        </div>
+        <div class="quiz hidden">
+          <div class= "question"></div>
+          <form class= "answers">
+            
+          </form>
+          <br>
+          <div class= "correct answerHide"></div>
+          <button class="next" onclick= "nextQuestion()">next</button>
+        </div>
+      </div>
+  </main>
 </body>
+
 </html>
