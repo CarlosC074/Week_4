@@ -22,3 +22,7 @@
  transition: all 0.5s linear;
  width: 700px;
 }
+
+.hiddenAnswer {
+  opacity: 0;
+}
