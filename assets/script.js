@@ -36,8 +36,9 @@ var questions = [
     var qindex = 0
     //counts how many correct answers there are
     var points = 0
-  
-  
+    const timer = document.querySelector(".timer")
+    const startingMinutes = 3;
+    let time = startingMinutes * 60;
 
   function checkAnswer(index) {
     var realIndex = index-1;
@@ -82,17 +83,58 @@ var questions = [
     }
      else {
       alert('quiz Over')
+      endQuiz()
     }
   }, 1000)
   }
   
+function endQuiz() {
+  const endCard = document.querySelector(".end")
+  const results = document.querySelector(".results")
+  results.innerHTML = `You have scored: ${points}/5 points.`
+
+  endCard.classList.remove("hidden");
+  timer.classList.add("hiddenTimer");
+}
+
+function updateTimer() {
+  var runTime = setInterval(() => {
+    
+  
+  let minDisplay = Math.floor(time/60);
+  let secDisplay = time % 60;
+
+  secDisplay = secDisplay < 10 ? '0' + secDisplay : secDisplay;
+
+  time = time < 0 ? '0' : time;
+
+  if(time <= 0 ) {
+    timer.innerHTML = '0:00';
+    alert('quiz over');
+    endQuiz();
+    clearInterval(runTime);
+  }
+  else{
+  timer.innerHTML = `${minDisplay}:${secDisplay}`;
+  time--
+  }
+}, 1000)
+}
+
+function displayTimer() {
+  timer.classList.remove("hiddenTimer");
+  updateTimer();
+}
+
   document.querySelector('.next').addEventListener('click', function(){
     checkAnswer(qindex)
-    nextQuestion(qindex)})
+    nextQuestion(qindex)
+  })
   
   document.querySelector('.take-quiz').addEventListener('click', function(){
     document.querySelector('.intro').classList.toggle('hidden')
     document.querySelector('.quiz').classList.toggle('hidden')
+    displayTimer()
     nextQuestion(qindex)
   })
   
