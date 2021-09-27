@@ -32,15 +32,23 @@ var questions = [
       answer: "console.log"
     }
   ];
-  
+    
+    console.log(JSON.parse(localStorage.getItem("savedScores")))
+
     var qindex = 0
     //counts how many correct answers there are
     var points = 0
     const timer = document.querySelector(".timer")
     const startingMinutes = 3;
     let time = startingMinutes * 60;
-
+    /*This variable exists so the quiz can't time out if completed before the time limit.
+      When the quiz ends before the time limit is stopped, the timer will continue to tick even if the display is 
+      gone. With that said, if that persisiting timer hits zero after the quiz has ended, the endQuiz funtion
+      will run again.*/
+    var quizOver = false;
+    var scores = []
   function checkAnswer(index) {
+    //This is the index used for grading since the index moved up by one after each question is answered.
     var realIndex = index-1;
     var myForm = document.getElementsByName(`quizQuestion_${realIndex}`);
     const qAnswer = questions[realIndex].answer;
@@ -83,6 +91,7 @@ var questions = [
     }
      else {
       alert('quiz Over')
+      quizOver = true;
       endQuiz()
     }
   }, 1000)
@@ -97,6 +106,37 @@ function endQuiz() {
   timer.classList.add("hiddenTimer");
 }
 
+function saveInitials() {
+  const initials = document.getElementById("initial").value;
+  let minDisplay = Math.floor(time/60);
+  let secDisplay = time % 60;
+
+  const scoreCard = {
+    Initals: initials,
+    Score: points,
+    RemainingTime: `${minDisplay}:${secDisplay}`
+  }
+
+  scores.push(scoreCard);
+  
+  localStorage.setItem("savedScores", JSON.stringify(scores));
+}
+
+
+function showScores(event) {
+  event.preventDefault();
+  saveInitials();
+  const scores = JSON.parse(localStorage.getItem("savedScores"));
+  console.log(scores);
+  const resultsCard = document.querySelector(".scoreCard");
+  const endCard = document.querySelector(".end");
+  endCard.classList.add("hidden");
+  resultsCard.classList.remove("hidden");
+
+
+  
+}
+
 function updateTimer() {
   var runTime = setInterval(() => {
     
@@ -108,10 +148,13 @@ function updateTimer() {
 
   time = time < 0 ? '0' : time;
 
-  if(time <= 0 ) {
+  if(time <= 0 && quizOver === false) {
     timer.innerHTML = '0:00';
     alert('quiz over');
     endQuiz();
+    clearInterval(runTime);
+  }
+  else if(quizOver === true) {
     clearInterval(runTime);
   }
   else{
@@ -126,6 +169,15 @@ function displayTimer() {
   updateTimer();
 }
 
+function seeData() {
+  if(localStorage.getItem("savedScores") != null) {
+    console.log("The thing exists")
+  }
+  else{
+    console.log("the thing doesnt exist");
+  }
+}
+
   document.querySelector('.next').addEventListener('click', function(){
     checkAnswer(qindex)
     nextQuestion(qindex)
@@ -138,3 +190,6 @@ function displayTimer() {
     nextQuestion(qindex)
   })
   
+  document.querySelector("#submitInitials").addEventListener('click',
+  showScores
+  )

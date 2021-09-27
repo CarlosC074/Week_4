@@ -31,8 +31,21 @@
     <div class="end hidden">
       <h2> Results</h2>
       <br>
-      <p class= "results"></p>
+      <form>
+        <input type="text" id="initial" name="initialsInput" placeholder="JD" required maxlength="2">
+        <label for="initial">Enter your initials here</label>
+        <p class= "results"></p>
+        <input type="submit" value="Submit" id="submitInitials">
+      </form>
     </div>
+  </div>
+  <!--end of results card-->
+  <div class="scoreCard hidden">
+    <h3>Past Scores</h3>
+    <p> See how you and your friends scored in the past</p>
+    <br>
+    <br>
+    <!--Previous scores placed in local storage are left in here-->
   </div>
 </body>
 
