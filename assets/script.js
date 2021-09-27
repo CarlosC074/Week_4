@@ -128,9 +128,9 @@ function saveInitials() {
   let secDisplay = time % 60;
 
   const scoreCard = {
-    Initals: initials,
-    Score: points,
-    RemainingTime: `${minDisplay}:${secDisplay}`
+    initals: initials,
+    score: points,
+    remainingTime: `${minDisplay}:${secDisplay}`
   }
 
   scores.push(scoreCard);
@@ -146,9 +146,14 @@ function showScores(event) {
   console.log(scores);
   const resultsCard = document.querySelector(".scoreCard");
   const endCard = document.querySelector(".end");
+
   endCard.classList.add("hidden");
   resultsCard.classList.remove("hidden");
 
+  for (i = 0; i <= scores.length; i++) {
+    const initial = scores[i];
+    console.log(initial);
+  }
 
   
 }
