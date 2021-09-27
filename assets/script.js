@@ -33,7 +33,6 @@ var questions = [
     }
   ];
     
-    console.log(JSON.parse(localStorage.getItem("savedScores")))
 
     var qindex = 0
     //counts how many correct answers there are
@@ -46,7 +45,24 @@ var questions = [
       gone. With that said, if that persisiting timer hits zero after the quiz has ended, the endQuiz funtion
       will run again.*/
     var quizOver = false;
-    var scores = []
+    var scores = 0
+
+
+// The array being stored into the local storage is called "scores". If it does not exist, create an array, if it does, leave it as is, so that new results can be 
+// pushed into the array.
+    function renderScores() {
+      const savedScores = JSON.parse(localStorage.getItem("savedScores"));
+
+      if(savedScores === null) {
+        scores = [];
+      } else {
+        scores = savedScores;
+        console.log(scores);
+      }
+    }
+
+    renderScores();
+
   function checkAnswer(index) {
     //This is the index used for grading since the index moved up by one after each question is answered.
     var realIndex = index-1;
@@ -164,19 +180,13 @@ function updateTimer() {
 }, 1000)
 }
 
+
 function displayTimer() {
   timer.classList.remove("hiddenTimer");
   updateTimer();
 }
 
-function seeData() {
-  if(localStorage.getItem("savedScores") != null) {
-    console.log("The thing exists")
-  }
-  else{
-    console.log("the thing doesnt exist");
-  }
-}
+
 
   document.querySelector('.next').addEventListener('click', function(){
     checkAnswer(qindex)
