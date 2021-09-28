@@ -150,8 +150,9 @@ function showScores(event) {
   endCard.classList.add("hidden");
   resultsCard.classList.remove("hidden");
 
-  for (i = 0; i <= scores.length; i++) {
-    const initial = scores[i];
+  for (i = 0; i < scores.length; i++) {
+    const initial = scores[i].initals;
+    
     console.log(initial);
   }
 
